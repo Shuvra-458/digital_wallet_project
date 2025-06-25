@@ -39,7 +39,7 @@ A secure and fully-featured **digital wallet backend system** built with **FastA
 
 ```bash
 # Clone the repo
-git clone https://github.com/your-username/digital-wallet-api.git
+git clone https://github.com/Shuvra-458/digital-wallet-api.git
 cd digital-wallet-api
 
 # Create virtual environment
