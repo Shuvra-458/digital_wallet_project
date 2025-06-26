@@ -1,6 +1,6 @@
 # 💸 Digital Wallet API
 
-A secure and fully-featured **digital wallet backend system** built with **FastAPI**, supporting user authentication, wallet funding, product purchases, payments, and real-time currency conversion.
+A secure and fully-featured **digital wallet backend system** built with **FastAPI**, supporting user authentication, wallet funding, product purchases, payments, and real-time currency conversion(300 Requests).
 
 [![Live API](https://img.shields.io/badge/Live%20API-Render-blue)](https://digital-wallet-backend-0uff.onrender.com/docs)
 
