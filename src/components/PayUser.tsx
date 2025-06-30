@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { api } from '../services/api'
 import { Send, User } from 'lucide-react'
 import toast from 'react-hot-toast'

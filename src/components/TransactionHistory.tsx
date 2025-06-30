@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { api } from '../services/api'
 import { History, ArrowUpRight, ArrowDownLeft, RefreshCw } from 'lucide-react'
 import toast from 'react-hot-toast'

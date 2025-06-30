@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { api } from '../services/api'
 import { PlusCircle, CreditCard } from 'lucide-react'
 import toast from 'react-hot-toast'
@@ -22,7 +22,7 @@ export default function FundWallet({ onSuccess }: FundWalletProps) {
 
     setLoading(true)
     try {
-      const response = await api.fundWallet(fundAmount)
+      await api.fundWallet(fundAmount)
       toast.success(`₹${fundAmount} added to your wallet!`)
       setAmount('')
       onSuccess()

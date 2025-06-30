@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import { api } from '../services/api'
 import { Wallet, RefreshCw, DollarSign, Euro, PoundSterling } from 'lucide-react'
