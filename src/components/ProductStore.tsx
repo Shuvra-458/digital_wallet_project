@@ -194,7 +194,7 @@ export default function ProductStore({ onPurchase }: ProductStoreProps) {
                   <p className="text-lg font-bold text-primary-600">₹{product.price.toFixed(2)}</p>
                 </div>
                 <button
-                  onClick={() => handleBuyProduct(product.id, product.name, product.price)}
+                  onClick={() => handleBuyProduct(product.id, product.name)}
                   disabled={buyingProduct === product.id}
                   className="w-full btn-primary flex items-center justify-center gap-2"
                 >
