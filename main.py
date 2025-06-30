@@ -5,6 +5,9 @@ from wallet import router as wallet_router
 from product import router as product_router
 from fastapi.middleware.cors import CORSMiddleware
 
+
+
+app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["https://digital-wallet-project-shuvras-projects.vercel.app/"],
@@ -12,8 +15,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-app = FastAPI()
 
 app.include_router(product_router)
 app.include_router(wallet_router)
