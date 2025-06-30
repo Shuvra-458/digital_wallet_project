@@ -65,7 +65,7 @@ export default function ProductStore({ onPurchase }: ProductStoreProps) {
     }
   }
 
-  const handleBuyProduct = async (productId: number, productName: string, price: number) => {
+  const handleBuyProduct = async (productId: number, productName: string) => {
     setBuyingProduct(productId)
     try {
       await api.buyProduct(productId)
