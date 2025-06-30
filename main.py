@@ -3,6 +3,15 @@ from database import Base, engine
 from auth import router as auth_router
 from wallet import router as wallet_router
 from product import router as product_router
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://digital-wallet-project-shuvras-projects.vercel.app/"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app = FastAPI()
 
