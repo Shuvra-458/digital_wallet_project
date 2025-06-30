@@ -28,7 +28,7 @@ export default function PayUser({ onSuccess }: PayUserProps) {
 
     setLoading(true)
     try {
-      const response = await api.payUser(recipient.trim(), payAmount)
+      await api.payUser(recipient.trim(), payAmount)
       toast.success(`₹${payAmount} sent to ${recipient}!`)
       setRecipient('')
       setAmount('')
