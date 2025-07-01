@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Wallet</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="app">
+        <!-- Login/Register Section -->
+        <div id="auth-section" class="auth-container">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <i class="fas fa-wallet"></i>
+                    <h1>Digital Wallet</h1>
+                </div>
+                
+                <div class="auth-tabs">
+                    <button class="tab-btn active" onclick="showLogin()">Login</button>
+                    <button class="tab-btn" onclick="showRegister()">Register</button>
+                </div>
+
+                <!-- Login Form -->
+                <div id="login-form" class="auth-form">
+                    <h2>Welcome Back</h2>
+                    <form onsubmit="handleLogin(event)">
+                        <div class="form-group">
+                            <label for="login-username">Username</label>
+                            <input type="text" id="login-username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="login-password">Password</label>
+                            <input type="password" id="login-password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </form>
+                </div>
+
+                <!-- Register Form -->
+                <div id="register-form" class="auth-form hidden">
+                    <h2>Create Account</h2>
+                    <form onsubmit="handleRegister(event)">
+                        <div class="form-group">
+                            <label for="register-username">Username</label>
+                            <input type="text" id="register-username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-password">Password</label>
+                            <input type="password" id="register-password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Register</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Section -->
+        <div id="dashboard-section" class="dashboard hidden">
+            <header class="dashboard-header">
+                <div class="header-content">
+                    <div class="logo">
+                        <i class="fas fa-wallet"></i>
+                        <span>Digital Wallet</span>
+                    </div>
+                    <div class="user-info">
+                        <span id="username-display"></span>
+                        <button class="btn btn-secondary" onclick="logout()">Logout</button>
+                    </div>
+                </div>
+            </header>
+
+            <main class="dashboard-main">
+                <!-- Balance Card -->
+                <div class="balance-card">
+                    <div class="balance-header">
+                        <h3>Current Balance</h3>
+                        <div class="currency-selector">
+                            <select id="currency-select" onchange="updateBalance()">
+                                <option value="INR">INR (₹)</option>
+                                <option value="USD">USD ($)</option>
+                                <option value="EUR">EUR (€)</option>
+                                <option value="GBP">GBP (£)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="balance-amount" id="balance-display">₹0.00</div>
+                    <button class="btn btn-primary" onclick="refreshBalance()">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                </div>
+
+                <!-- Action Tabs -->
+                <div class="action-tabs">
+                    <button class="action-tab active" onclick="showTab('fund')">
+                        <i class="fas fa-plus"></i> Fund Wallet
+                    </button>
+                    <button class="action-tab" onclick="showTab('pay')">
+                        <i class="fas fa-paper-plane"></i> Pay User
+                    </button>
+                    <button class="action-tab" onclick="showTab('products')">
+                        <i class="fas fa-shopping-cart"></i> Products
+                    </button>
+                    <button class="action-tab" onclick="showTab('history')">
+                        <i class="fas fa-history"></i> History
+                    </button>
+                </div>
+
+                <!-- Tab Contents -->
+                <div class="tab-content">
+                    <!-- Fund Wallet Tab -->
+                    <div id="fund-tab" class="tab-pane active">
+                        <div class="card">
+                            <h3>Fund Your Wallet</h3>
+                            <form onsubmit="handleFund(event)">
+                                <div class="form-group">
+                                    <label for="fund-amount">Amount (INR)</label>
+                                    <input type="number" id="fund-amount" step="0.01" min="1" required>
+                                </div>
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fas fa-plus"></i> Add Funds
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Pay User Tab -->
+                    <div id="pay-tab" class="tab-pane">
+                        <div class="card">
+                            <h3>Pay Another User</h3>
+                            <form onsubmit="handlePay(event)">
+                                <div class="form-group">
+                                    <label for="pay-username">Recipient Username</label>
+                                    <input type="text" id="pay-username" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pay-amount">Amount (INR)</label>
+                                    <input type="number" id="pay-amount" step="0.01" min="0.01" required>
+                                </div>
+                                <button type="submit" class="btn btn-warning">
+                                    <i class="fas fa-paper-plane"></i> Send Payment
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Products Tab -->
+                    <div id="products-tab" class="tab-pane">
+                        <div class="card">
+                            <div class="products-header">
+                                <h3>Product Store</h3>
+                                <button class="btn btn-primary" onclick="showAddProduct()">
+                                    <i class="fas fa-plus"></i> Add Product
+                                </button>
+                            </div>
+                            
+                            <!-- Add Product Form -->
+                            <div id="add-product-form" class="add-product-form hidden">
+                                <h4>Add New Product</h4>
+                                <form onsubmit="handleAddProduct(event)">
+                                    <div class="form-group">
+                                        <label for="product-name">Product Name</label>
+                                        <input type="text" id="product-name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="product-price">Price (INR)</label>
+                                        <input type="number" id="product-price" step="0.01" min="0.01" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="product-description">Description</label>
+                                        <textarea id="product-description" rows="3" required></textarea>
+                                    </div>
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn btn-success">Add Product</button>
+                                        <button type="button" class="btn btn-secondary" onclick="hideAddProduct()">Cancel</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div id="products-list" class="products-grid">
+                                <!-- Products will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Transaction History Tab -->
+                    <div id="history-tab" class="tab-pane">
+                        <div class="card">
+                            <h3>Transaction History</h3>
+                            <div id="transactions-list" class="transactions-list">
+                                <!-- Transactions will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay hidden">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Loading...</p>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
