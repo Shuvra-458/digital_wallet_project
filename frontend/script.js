@@ -41,20 +41,38 @@ function getAuthHeaders() {
 async function apiCall(endpoint, options = {}) {
     try {
         showLoading();
+
+        // Default headers
+        const defaultHeaders = getAuthHeaders();
+
+        // If the method is POST or PUT and no Content-Type is set, default to JSON
+        if (options.method === 'POST' || options.method === 'PUT') {
+            if (!options.headers) options.headers = {};
+            if (!options.headers['Content-Type']) {
+                options.headers['Content-Type'] = 'application/json';
+            }
+        }
+
         const response = await fetch(`${API_BASE_URL}${endpoint}`, {
             ...options,
             headers: {
-                ...getAuthHeaders(),
+                ...defaultHeaders,
                 ...options.headers
             }
         });
-        
-        const data = await response.json();
-        
-        if (!response.ok) {
-            throw new Error(data.detail || 'API request failed');
+
+        // If response is not JSON (e.g., empty response on 204 No Content), skip JSON parsing
+        let data;
+        try {
+            data = await response.json();
+        } catch {
+            data = null;
         }
-        
+
+        if (!response.ok) {
+            throw new Error(data?.detail || 'API request failed');
+        }
+
         return data;
     } catch (error) {
         showToast(error.message, 'error');
@@ -63,6 +81,7 @@ async function apiCall(endpoint, options = {}) {
         hideLoading();
     }
 }
+
 
 // Auth Functions
 function showLogin() {
